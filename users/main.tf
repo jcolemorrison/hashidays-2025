@@ -7,7 +7,7 @@ resource "aws_security_group" "ec2" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Open to the world; restrict as needed
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
