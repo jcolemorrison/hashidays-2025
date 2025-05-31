@@ -1,7 +1,7 @@
 resource "aws_security_group" "ec2" {
   name        = "ec2-sg-${var.project_name}"
   description = "Allow SSH"
-  vpc_id      = module.vpc.vpc_id
+  vpc_id      = module.vpc.id
 
   ingress {
     from_port   = 22
