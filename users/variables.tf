@@ -10,6 +10,12 @@ variable "vpc_cidr_block" {
   default     = "10.5.4.0/22"
 }
 
+variable "ec2_keypair_name" {
+  description = "Name of EC2 keypair"
+  type        = string
+  default     = null
+}
+
 variable "aws_default_tags" {
   type        = map(string)
   description = "Default tags added to all AWS resources."

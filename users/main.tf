@@ -23,13 +23,14 @@ data "aws_ssm_parameter" "al2023" {
 }
 
 resource "aws_instance" "example" {
-  ami                    = data.aws_ssm_parameter.al2023.value
-  instance_type          = "t3.micro"
+  ami                         = data.aws_ssm_parameter.al2023.value
+  instance_type               = "t3.micro"
   associate_public_ip_address = true
-  subnet_id              = module.vpc.public_subnet_ids[0]
-  vpc_security_group_ids = [aws_security_group.ec2.id]
+  subnet_id                   = module.vpc.public_subnet_ids[0]
+  vpc_security_group_ids      = [aws_security_group.ec2.id]
+  key_name                    = var.ec2_keypair_name
 
   tags = {
-    Name = "example-ec2-${var.project_name}"
+    Name = "server-${var.project_name}"
   }
 }
