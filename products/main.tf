@@ -36,9 +36,3 @@ resource "aws_db_instance" "products" {
   password_wo_version = aws_secretsmanager_secret_version.db_password.secret_string_wo_version
   db_subnet_group_name = aws_db_subnet_group.products.name
 }
-
-output "secret_id" {
-  value       = aws_secretsmanager_secret.db_password.id
-  description = "Temporary secret ID for accessing database in AWS."
-  ephemeral   = true
-}
