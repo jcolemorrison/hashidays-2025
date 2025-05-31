@@ -17,14 +17,24 @@ ephemeral "aws_secretsmanager_secret_version" "db_password" {
   secret_id = aws_secretsmanager_secret_version.db_password.secret_id
 }
 
-resource "aws_db_instance" "main" {
-  instance_class = "db.t3.micro"
+resource "aws_db_subnet_group" "products" {
+  name       = "db-subnet-group"
+  subnet_ids = module.vpc.public_subnet_ids
 
-  # .. other attributes
+  tags = {
+    Name = "db-subnet-group-${var.project_name}"
+  }
+}
 
-  # write‑only attribute provided by the AWS provider
+resource "aws_db_instance" "products" {
+  instance_class      = "db.t3.micro"
+  allocated_storage   = 5
+  engine              = "postgres"
+  username            = "hashidays"
+  skip_final_snapshot = true
   password_wo         = ephemeral.aws_secretsmanager_secret_version.db_password.secret_string
   password_wo_version = aws_secretsmanager_secret_version.db_password.secret_string_wo_version
+  db_subnet_group_name = aws_db_subnet_group.products.name
 }
 
 output "secret_id" {
