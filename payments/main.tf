@@ -38,6 +38,6 @@ resource "aws_instance" "example" {
   key_name                    = var.ec2_keypair_name
 
   tags = {
-    Name = "server-${var.project_name}"
+    Name = "server-${var.project_name}-2025"
   }
 }
